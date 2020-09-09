@@ -1,9 +1,9 @@
+import { ChangePasswordInput } from "./changePassword/changePasswordInput";
 import { redis } from "../../redis";
 import { User } from "../../entity/User";
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { forgotPasswordPrefix } from "../constants/redisPrefixes";
 import bcrypt from "bcryptjs";
-import { ChangePasswordInput } from "./changePassword/changePasswordInput";
 import { MyContext } from "types/MyContext";
 
 @Resolver()

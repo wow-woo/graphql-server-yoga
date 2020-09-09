@@ -1,8 +1,8 @@
+import { createSchema } from "./utils/createSchema";
 import { redis } from "./redis";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
 import "reflect-metadata";
-import { buildSchema } from "type-graphql";
 import dotenv from "dotenv";
 import { createConnection } from "typeorm";
 import session from "express-session";
@@ -19,20 +19,7 @@ const main = async () => {
   // createConnection method will automatically read connection options
   // from your ormconfig file or environment variables
 
-  const schema = await buildSchema({
-    resolvers: [
-      __dirname + "/modules/**/*.ts",
-      // RegisterResolver,
-      // LoginResolver,
-      // MeResolver,
-      // ConfirmUser,
-      // ForgotPasswordResolver,
-    ],
-    validate: true,
-    authChecker: ({ context: { req } }) => {
-      return !!req.session.userId;
-    },
-  });
+  const schema = await createSchema();
 
   const apolloServer = new ApolloServer({
     schema,
