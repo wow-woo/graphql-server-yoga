@@ -1,8 +1,8 @@
+import "reflect-metadata";
 import { createSchema } from "./utils/createSchema";
 import { redis } from "./redis";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
-import "reflect-metadata";
 import dotenv from "dotenv";
 import { createConnection } from "typeorm";
 import session from "express-session";
