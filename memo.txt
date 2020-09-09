@@ -1,0 +1,139 @@
+***
+graphql server context
+
+@Ctx Confusion:  I don't understand how the @Ctx decorator gets access to the request object.  Isn't the context supplied as part of creating the apolloServer? If so, how does Typegraphql's @Ctx know this, since it's schema is passed into ApolloServer at same time? 
+
+
+When we pass a function in, Apollo Server will create a new context object on every request and send it to the schema which happens to be created with type-graphql
+
+
+
+
+
+
+
+***
+tsconfig.json
+
+  "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+you can just import regularly
+
+import * as Express from 'express';  > import Express from 'express'
+
+
+
+***
+ts-node-dev
+
+improved nodemon with type system.
+fast performace
+
+
+***
+type-graphql
+
+this is NOT  a graphql server, help graphql server with schema type set.
+
+create schema of entity using decorators of type-graphql
+
+object entity basis
+
+you can not directly pass a typesciprt type or typescript class into decorators,
+if you don't specify entity with type-graphql decorators
+
+@Field() : you can expose the field to graphql, specifying type more.
+@Root : parent
+@Arg  : argument
+@FieldResolver()
+  async name(@Root() parent: User) {
+    return `${parent.firstName} ${parent.lastName}`;
+ }
+
+work with the value of resolver. put into @Resolver decorator.
+
+
+
+
+***
+protect resolver 
+
+1. authChecker 
+1-1)
+put @Authorized() decorator on a resolver you want to protect.
+
+whatever is going to be passed into the resolver we have access to 
+
+1-2)
+when you build schema, give funtion authChecker property, that have you access to what resolver
+you access.
+
+
+2. using middlewares
+
+@UseMiddleware() decorator
+
+2-1)
+put @UseMiddleware( middlewareFuntion ) decorator on a resolver you want to protect.
+
+whatever is going to be passed into the resolver we have access to 
+
+2-2)
+pass in middleware function into it.
+not only protecting resolver, you can do any middleware with it.
+
+
+
+
+
+***
+class-validator
+
+
+-fractal pattern
+
+
+custom message for error
+ @Length(1, 30, { message: "first name must to be in 1 ~ 30 length" })
+
+
+
+
+***
+typeorm
+
+it works good with type-graphql
+they both use decoration.
+entitiy level processing.
+
+object entity basis
+
+add package > ormconfig.json configuration.
+
+create schema of entity using decorators of typeorm and javascript type
++ use type-graphql deocrators to expose structure to graphql and for type safety.
+
+@Column("text", { unique: true })
+
+then you can create table consist of fields alogn schema
+
+you can CRUD with your schema entity.
+
+
+
+give the column default value
+  @Column("bool", { default: false })
+
+
+
+
+***
+postgress
+
+
+
+***
+send signed-up user cofirm mail
+
+nodemail package.

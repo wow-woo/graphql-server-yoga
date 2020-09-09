@@ -1,3 +1,4 @@
+import { ConfirmUser } from "./modules/user/ConfirmUser";
 import { MeResolver } from "./modules/user/Me";
 import { redis } from "./redis";
 import { ApolloServer } from "apollo-server-express";
@@ -23,14 +24,21 @@ const main = async () => {
   // from your ormconfig file or environment variables
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, MeResolver],
+    resolvers: [RegisterResolver, LoginResolver, MeResolver, ConfirmUser],
     validate: true,
+    authChecker: ({ context: { req } }) => {
+      return !!req.session.userId;
+    },
   });
 
   const apolloServer = new ApolloServer({
     schema,
     //server creates context that you can access in resolvers
     // req, res from express
+    //When we pass a function in, Apollo Server will
+    //create a new context object on every request
+    //and send it to the schema which happens
+    //to be created with type-graphql
     context: ({ req }: any) => ({ req }),
   });
 
@@ -62,7 +70,9 @@ const main = async () => {
 
   apolloServer.applyMiddleware({ app });
 
-  app.listen(4000, () => console.log("server started on 4000"));
+  app.listen(4000, () => {
+    console.log("server started on 4000");
+  });
 };
 
 main();

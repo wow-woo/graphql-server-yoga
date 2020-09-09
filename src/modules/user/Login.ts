@@ -22,7 +22,11 @@ export class LoginResolver {
     if (!valid) {
       return null;
     }
-    console.log("ctx", ctx);
+
+    if (!user.confirmed) {
+      return null;
+    }
+
     ctx.req.session!.userId = user.id;
 
     return user;

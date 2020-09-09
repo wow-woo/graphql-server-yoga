@@ -1,12 +1,17 @@
+import { createConfirmationURL } from "./../utils/createConfirmationURL";
+import { logger } from "./../middlewares/logger";
 import { RegisterInput } from "./register/registerinput";
 import { User } from "./../../entity/User";
-import { Query, Resolver, Mutation, Arg } from "type-graphql";
+import { Query, Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import bcrypt from "bcryptjs";
+import { isAuth } from "../middlewares/isAuth";
+import { sendEmail } from "../utils/sendEmail";
 
 @Resolver()
 export class RegisterResolver {
   //uppercase string, it is string class
-  @Query(() => String, { nullable: true })
+  @UseMiddleware(isAuth, logger)
+  @Query(() => String)
   async hello() {
     return "world";
   }
@@ -23,6 +28,8 @@ export class RegisterResolver {
       email,
       password: hashedPassword,
     }).save();
+
+    await sendEmail(email, await createConfirmationURL(user.id));
 
     return user;
   }
