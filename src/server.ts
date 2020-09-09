@@ -1,5 +1,3 @@
-import { ConfirmUser } from "./modules/user/ConfirmUser";
-import { MeResolver } from "./modules/user/Me";
 import { redis } from "./redis";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
@@ -10,8 +8,6 @@ import { createConnection } from "typeorm";
 import session from "express-session";
 import cors from "cors";
 import connectRedis from "connect-redis";
-import { RegisterResolver } from "./modules/user/Register";
-import { LoginResolver } from "./modules/user/Login";
 
 const main = async () => {
   await createConnection();
@@ -24,7 +20,14 @@ const main = async () => {
   // from your ormconfig file or environment variables
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, MeResolver, ConfirmUser],
+    resolvers: [
+      __dirname + "/modules/**/*.ts",
+      // RegisterResolver,
+      // LoginResolver,
+      // MeResolver,
+      // ConfirmUser,
+      // ForgotPasswordResolver,
+    ],
     validate: true,
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;
@@ -39,7 +42,7 @@ const main = async () => {
     //create a new context object on every request
     //and send it to the schema which happens
     //to be created with type-graphql
-    context: ({ req }: any) => ({ req }),
+    context: ({ req, res }: any) => ({ req, res }),
   });
 
   const RedisStore = await connectRedis(session);

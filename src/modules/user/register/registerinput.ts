@@ -1,10 +1,11 @@
 //input for resolver.
+import { PasswordInput } from "./../../shared/PasswordInput";
 import { Length, IsEmail } from "class-validator";
 import { InputType, Field } from "type-graphql";
 import { IsEmailAlreadyExist } from "./isEmailAlreadyExist";
 
 @InputType()
-export class RegisterInput {
+export class RegisterInput extends PasswordInput {
   @Field()
   @Length(1, 30, { message: "first name must to be in 1 ~ 30 length" })
   firstName: string;
@@ -18,7 +19,4 @@ export class RegisterInput {
   //custom decorator
   @IsEmailAlreadyExist({ message: "Email already in use" })
   email: string;
-
-  @Field()
-  password: string;
 }

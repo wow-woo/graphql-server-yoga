@@ -55,6 +55,14 @@ work with the value of resolver. put into @Resolver decorator.
 
 
 
+-  how to automately import resolvers to buildSchema()
+ resolvers: [
+      __dirname + "/modules/**/*.ts"
+]
+
+
+
+
 
 ***
 protect resolver 
@@ -133,7 +141,28 @@ postgress
 
 
 
+
+
+
+
 ***
 send signed-up user cofirm mail
 
-nodemail package.
+nodemailer package.
+
+
++you can create test email with this. test simply
+
+
+
+
+
+
+
+***
+redis
+
+- ioredis
+
+
+
