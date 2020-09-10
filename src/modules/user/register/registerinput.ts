@@ -1,5 +1,5 @@
 //input for resolver.
-import { PasswordMixin } from "./../../shared/PasswordInput";
+import { PasswordMixin } from "../../shared/PasswordInput";
 import { Length, IsEmail } from "class-validator";
 import { InputType, Field } from "type-graphql";
 import { IsEmailAlreadyExist } from "./isEmailAlreadyExist";

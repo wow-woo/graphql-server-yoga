@@ -1,3 +1,8 @@
+import { ProfilePictureResolver } from "./../modules/user/ProfilePicture";
+import {
+  CreateUserResolver,
+  CreateProductResolver,
+} from "./../modules/user/CreateUserBaseResolver";
 import { buildSchema } from "type-graphql";
 import { ForgotPasswordResolver } from "./../modules/user/forgotPassword";
 import { ConfirmUserResolver } from "./../modules/user/ConfirmUser";
@@ -17,6 +22,9 @@ export const createSchema = () =>
       MeResolver,
       ConfirmUserResolver,
       ForgotPasswordResolver,
+      CreateUserResolver,
+      CreateProductResolver,
+      ProfilePictureResolver,
     ],
     validate: true,
     authChecker: ({ context: { req } }) => {

@@ -166,3 +166,58 @@ redis
 
 
 
+***
+higher order resolver
+generic resolver
+
+
+instead of writting resolvers in similar manner,
+ you may want to reuse the code. 
+you can create a function that creates resolvers that you need.
+
+pass in parameters to change what types are being returned and whatnot.
+
+we make factory function.
+
+t's very important to mark the BaseResolver class 
+using the @Resolver decorator with the { isAbstract: true } option 
+that will prevent throwing an error
+ due to registering multiple queries/mutations with the same name.
+
+you can not use the same name for resolver decorator without {isAbstract:true}
+
+
+
+function createBaseResolver<T extends ClassType>(suffix: string, objectTypeCls: T) {
+  abstract class BaseResolver {}
+
+  return BaseResolver;
+}
+
+
+
+***
+graphql-upload
+
+it comes bundled with apollo-server.
+
+how to upload file throught graphql
+
+1
+so you should turn off the default apollo-server uploads option to false
+
+2. and set app level middleware 
+  app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
+
+
+https://github.com/MichalLytek/type-graphql/issues/37#issuecomment-592467594
+
+
+
+
+***
+protecting graphql server from complexity query, that crashes server or super slow down.
+
+type-graphql interete graphql-query-complexity package
+
+attach graphql-query-complexity package to plugins property of apolloServer init.

@@ -1,6 +1,6 @@
 import { createConfirmationURL } from "./../utils/createConfirmationURL";
 import { logger } from "./../middlewares/logger";
-import { RegisterInput } from "./register/registerinput";
+import { RegisterInput } from "./register/RegisterInput";
 import { User } from "./../../entity/User";
 import { Query, Resolver, Mutation, Arg, UseMiddleware } from "type-graphql";
 import bcrypt from "bcryptjs";
