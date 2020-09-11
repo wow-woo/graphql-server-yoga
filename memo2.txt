@@ -1,0 +1,24 @@
+typeDefs : fields you can resolve !
+
+resolvers: how you will resolve types
+
+resolve pattern: top to bottom / parent to child. depth by depth parellall
+
+1depth > 2depth > 3depth . . .
+
+
+graphql resolves types top to bottom / parent to child. / root to branch
+
+
+if you resolve type separately, it get resolved afterward. it is computed later on.
+it fills out blank field, even existing field with new value recursively
+
+
+parent :  resolved fields in that same type
+parent === parent type
+
+type parentType {
+	childType : type
+}
+
+you can access parent, when you resolve the specific field in that type

@@ -65,6 +65,51 @@ work with the value of resolver. put into @Resolver decorator.
 
 
 ***
+graphql
+
+EACH fields in type could have own resolver
+
+
+1. multiple queries can run parallell
+동시에 쿼리 여러개를 요청하고 resolver에서 구현.
+
+2.
+parent parameter passed in, when you recursively resolve that.
+
+in order to overwrite and have access to parent parameter, you have to seperately access in different resolver.
+
+type in queries get resolved recursively, overwrite value of the field. 
+you can resolve types individually, 
+<<<<<but it is not explecite in root type >>>>>it doesn't work recursively, no access to parent.
+
+
+
+schema : is object, has typeDefs and resolvers as property.
+
+typeDefs / resolvers
+
+1)
+
+2)
+resolvers :
+
+A resolver comes in three different forms or "root" types: Query, Mutation, and Subscription.
+
+In order for a resolver to be recognized in our schema, it must be defined in two ways:
+ on its root type and as the actual function that will resolve a request.
+
+
+* the reason you use graphql-tag
+import gql from 'graphql-tag';
+
+gql`
+`
+
+
+
+
+
+***
 protect resolver 
 
 1. authChecker 
